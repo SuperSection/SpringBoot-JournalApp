@@ -17,6 +17,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/journal")
 public class JournalEntryController {
+
     @Autowired
     private JournalEntryService journalEntryService;
 
@@ -92,4 +93,5 @@ public class JournalEntryController {
         }
         return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
     }
+
 }

@@ -14,14 +14,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/user")
 public class UserController {
+
     @Autowired
     private UserService userService;
-
-    @GetMapping
-    public ResponseEntity<?> getAllUsers() {
-        List<UserEntity> allUsers = userService.getAll();
-        return new ResponseEntity<>(allUsers, HttpStatus.OK);
-    }
 
     @PutMapping
     public ResponseEntity<?> updateUser(@RequestBody UserEntity user) {
