@@ -20,10 +20,15 @@ public class UserService {
 
     private static final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-    public void saveNewUser (UserEntity user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRoles(List.of("USER"));
-        userRepository.save(user);
+    public boolean saveNewUser (UserEntity user) {
+        try {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            user.setRoles(List.of("USER"));
+            userRepository.save(user);
+            return true;
+        } catch (Exception e){
+            return false;
+        }
     }
 
     public void saveChangedPassword (UserEntity user) {

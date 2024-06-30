@@ -1,7 +1,8 @@
 package com.supersection.journalApp.enitity;
 
+import com.mongodb.lang.NonNull;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.Setter;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
@@ -15,6 +16,7 @@ import java.util.List;
 @Document(collection = "users")
 @Getter
 @Setter
+@Builder
 public class UserEntity {
     @Id
     private ObjectId id;

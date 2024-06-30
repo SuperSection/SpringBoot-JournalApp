@@ -19,8 +19,14 @@ public class PublicController {
     }
 
     @PostMapping("create-user")
-    public ResponseEntity<UserEntity> createUser(@RequestBody UserEntity user) {
+    public ResponseEntity<?> createUser(@RequestBody UserEntity user) {
         try {
+            if (user.getUsername() == null || user.getUsername().isEmpty()) {
+                return new ResponseEntity<>("Username is required.", HttpStatus.BAD_REQUEST);
+            }
+            if (user.getPassword() == null || user.getPassword().isEmpty()) {
+                return new ResponseEntity<>("Password is required", HttpStatus.UNAUTHORIZED);
+            }
             userService.saveNewUser(user);
             return new ResponseEntity<>(user, HttpStatus.CREATED);
         } catch (Exception e) {
