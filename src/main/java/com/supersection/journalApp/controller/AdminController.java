@@ -28,10 +28,14 @@ public class AdminController {
     @PostMapping("create-admin-user")
     public ResponseEntity<?> createAdminUser(@RequestBody UserEntity user) {
         try {
-            userService.saveAdminUser(user);
-            return new ResponseEntity<>(user, HttpStatus.CREATED);
+            boolean adminSuccessfullyRegistered = userService.saveAdminUser(user);
+            if (adminSuccessfullyRegistered) {
+                return new ResponseEntity<>(user, HttpStatus.CREATED);
+            } else {
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     

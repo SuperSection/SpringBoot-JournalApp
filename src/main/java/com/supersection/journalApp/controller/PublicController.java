@@ -27,10 +27,14 @@ public class PublicController {
             if (user.getPassword() == null || user.getPassword().isEmpty()) {
                 return new ResponseEntity<>("Password is required", HttpStatus.UNAUTHORIZED);
             }
-            userService.saveNewUser(user);
-            return new ResponseEntity<>(user, HttpStatus.CREATED);
+            boolean isSuccessfullyRegistered = userService.saveNewUser(user);
+            if (isSuccessfullyRegistered) {
+                return new ResponseEntity<>(user, HttpStatus.CREATED);
+            } else {
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

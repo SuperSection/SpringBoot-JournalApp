@@ -5,6 +5,8 @@ import com.supersection.journalApp.enitity.UserEntity;
 import com.supersection.journalApp.repository.JournalEntryRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +24,8 @@ public class JournalEntryService {
     @Autowired
     private UserService userService;
 
+    private static final Logger logger = LoggerFactory.getLogger(JournalEntryService.class);
+
     @Transactional
     public void saveEntry(JournalEntry journalEntry, String username) {
         try {
@@ -33,6 +37,7 @@ public class JournalEntryService {
             user.getJournalEntries().add(savedJournal);
             userService.saveUser(user);
         } catch (Exception e) {
+            logger.info("yohohohoho yohohohoho");
             log.error("Exception while saving journal entry - ", e);
         }
     }
